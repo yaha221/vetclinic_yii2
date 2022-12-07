@@ -50,5 +50,7 @@ class MyRbacController extends Controller {
         $auth->assign($administrator, 3);
 
         $auth->assign($client, 4);
+
+        $auth->assign($client, 5);
     }
 }

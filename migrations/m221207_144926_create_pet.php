@@ -17,7 +17,7 @@ class m221207_144926_create_pet extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(50)->notNull(),
             'vet_id' => $this->integer()->notNull(),
-            'client_id' => $this->integer()->notNull(),
+            'client_id' => $this->integer(),
             'compaint_id' => $this->integer()->notNull(),
             'medication_id' => $this->integer()->notNull(),
             'course_of_treatment_id' => $this->integer()->notNull(),
