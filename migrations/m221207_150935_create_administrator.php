@@ -23,6 +23,14 @@ class m221207_150935_create_administrator extends Migration
             'update_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')->notNull(),
             'create_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP')->notNull(),
         ]);
+        
+        $this->insert(self::TABLE_NAME,[
+            'fio' => 'Путин В.В.',
+            'age' => 20,
+            'wage' => 25000,
+            'experience' => 24,
+            'user_id' => 3,
+        ]);
     }
 
     /**

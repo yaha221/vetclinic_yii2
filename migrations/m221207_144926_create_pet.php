@@ -19,8 +19,37 @@ class m221207_144926_create_pet extends Migration
             'vet_id' => $this->integer()->notNull(),
             'client_id' => $this->integer()->notNull(),
             'compaint_id' => $this->integer()->notNull(),
+            'medication_id' => $this->integer()->notNull(),
+            'course_of_treatment_id' => $this->integer()->notNull(),
             'update_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')->notNull(),
             'create_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP')->notNull(),
+        ]);
+
+        $this->insert(self::TABLE_NAME,[
+            'name' => 'Жора',
+            'vet_id' => 2,
+            'client_id' => 1,
+            'compaint_id' => 1,
+            'medication_id' => 2,
+            'course_of_treatment_id' => 1,
+        ]);
+
+        $this->insert(self::TABLE_NAME,[
+            'name' => 'Петя',
+            'vet_id' => 2,
+            'client_id' => 1,
+            'compaint_id' => 3,
+            'medication_id' => 3,
+            'course_of_treatment_id' => 2,
+        ]);
+
+        $this->insert(self::TABLE_NAME,[
+            'name' => 'Валера',
+            'vet_id' => 2,
+            'client_id' => 2,
+            'compaint_id' => 2,
+            'medication_id' => 1,
+            'course_of_treatment_id' => 3,
         ]);
     }
 

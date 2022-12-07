@@ -21,6 +21,24 @@ class m221207_145012_create_course_of_treatment extends Migration
             'update_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')->notNull(),
             'create_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP')->notNull(),
         ]);
+
+        $this->insert(self::TABLE_NAME,[
+            'name' => 'Назначен растолстин',
+            'description' => 'В ходе осмотра выяснилось что у животного просто прекраснейший метаболизм',
+            'pet_id' => 1,
+        ]);
+
+        $this->insert(self::TABLE_NAME,[
+            'name' => 'Назначен нелинин',
+            'description' => 'В ходе осмотра выяснилось что животное просто ленивое',
+            'pet_id' => 2,
+        ]);
+
+        $this->insert(self::TABLE_NAME,[
+            'name' => 'Назначен похудин',
+            'description' => 'В ходе осмотра выяснилось что у животного просто ужаснейший метаболизм',
+            'pet_id' => 3,
+        ]);
     }
 
     /**

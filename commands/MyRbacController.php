@@ -15,10 +15,14 @@ class MyRbacController extends Controller {
         $auth->removeAll(); 
 
         $admin = $auth->createRole('admin');
-        $user = $auth->createRole('user');
+        $vet = $auth->createRole('vet');
+        $client = $auth->createRole('client');
+        $administrator = $auth->createRole('administrator');
         
         $auth->add($admin);
-        $auth->add($user);
+        $auth->add($vet);
+        $auth->add($client);
+        $auth->add($administrator);
 
         $viewAdminPage = $auth->createPermission('viewAdminPage');
         $viewAdminPage->description = 'Просмотр админ панели';
@@ -29,14 +33,22 @@ class MyRbacController extends Controller {
         $auth->add($viewAdminPage);
         $auth->add($logoutUser);
 
-        $auth->addChild($user,$logoutUser);
-
-        $auth->addChild($admin, $user);
+        $auth->addChild($client,$logoutUser);
 
         $auth->addChild($admin, $viewAdminPage);
 
+        $auth->addChild($administrator, $client);
+
+        $auth->addChild($vet, $administrator);
+
+        $auth->addChild($admin, $vet);
+
         $auth->assign($admin, 1);
 
-        $auth->assign($user, 2);
+        $auth->assign($vet, 2);
+
+        $auth->assign($administrator, 3);
+
+        $auth->assign($client, 4);
     }
 }

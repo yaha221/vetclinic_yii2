@@ -21,6 +21,24 @@ class m221207_145037_create_complaint extends Migration
             'create_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP')->notNull(),
             'update_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')->notNull(),
         ]);
+
+        $this->insert(self::TABLE_NAME,[
+            'name' => 'Плохо ест',
+            'description' => 'В последнее время стал плохо кушать',
+            'pet_id' => 1,
+        ]);
+
+        $this->insert(self::TABLE_NAME,[
+            'name' => 'Постоянна лежит',
+            'description' => 'В последнее время стал совсем ленивым',
+            'pet_id' => 2,
+        ]);
+
+        $this->insert(self::TABLE_NAME,[
+            'name' => 'Растолстел',
+            'description' => 'В последнее время слишком много кушает',
+            'pet_id' => 3,
+        ]);
     }
 
     /**

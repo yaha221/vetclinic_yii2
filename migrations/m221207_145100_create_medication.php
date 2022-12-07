@@ -21,6 +21,24 @@ class m221207_145100_create_medication extends Migration
             'update_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')->notNull(),
             'create_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP')->notNull(),
         ]);
+
+        $this->insert(self::TABLE_NAME,[
+            'name' => 'Похудин',
+            'description' => 'Помогает животному снизить вес',
+            'pet_id' => 3,
+        ]);
+
+        $this->insert(self::TABLE_NAME,[
+            'name' => 'Растолстин',
+            'description' => 'Помогает животному набрать вес',
+            'pet_id' => 1,
+        ]);
+        
+        $this->insert(self::TABLE_NAME,[
+            'name' => 'Неленин',
+            'description' => 'Помогает животному набраться энергии',
+            'pet_id' => 2,
+        ]);
     }
 
     /**

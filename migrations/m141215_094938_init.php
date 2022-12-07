@@ -38,11 +38,38 @@ class m141215_094938_init extends Migration
         ]);
 
         $this->insert('user', [
-            'username' => 'Пользователь',
-            'name' => 'Пользователь',
-            'auth_key' => 'user',
+            'username' => 'Ветеринар',
+            'name' => 'Ветерина',
+            'auth_key' => 'vet',
             'password_hash' => '$2y$13$hEAhVD2b9u8HQOlReCa8Me2pNTGWtCL5.Br7MznprxF/m9hLQ75ii',
-            'email' => 'user@user.u',
+            'email' => 'vet@vet.v',
+            'confirmed_on' => 1669732865,
+        ]);
+
+        $this->insert('user', [
+            'username' => 'Администратор',
+            'name' => 'Администратор',
+            'auth_key' => 'administrator',
+            'password_hash' => '$2y$13$hEAhVD2b9u8HQOlReCa8Me2pNTGWtCL5.Br7MznprxF/m9hLQ75ii',
+            'email' => 'ad@ad.a',
+            'confirmed_on' => 1669732865,
+        ]);
+
+        $this->insert('user', [
+            'username' => 'Клиент',
+            'name' => 'Клиент',
+            'auth_key' => 'client',
+            'password_hash' => '$2y$13$hEAhVD2b9u8HQOlReCa8Me2pNTGWtCL5.Br7MznprxF/m9hLQ75ii',
+            'email' => 'client@client.c',
+            'confirmed_on' => 1669732865,
+        ]);
+
+        $this->insert('user', [
+            'username' => 'Клиент2',
+            'name' => 'Клиент2',
+            'auth_key' => 'client2',
+            'password_hash' => '$2y$13$hEAhVD2b9u8HQOlReCa8Me2pNTGWtCL5.Br7MznprxF/m9hLQ75ii',
+            'email' => 'client2@client.c',
             'confirmed_on' => 1669732865,
         ]);
 
