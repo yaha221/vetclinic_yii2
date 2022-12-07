@@ -29,7 +29,8 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'Калькулятор доставки',
+        'brandLabel' => 'Ветеринарная клиника',
+        'brandImage' => 'image/vetclinic.png',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-dark navbar-expand-sm bg-dark navbar-fixed-top',
@@ -43,7 +44,6 @@ AppAsset::register($this);
             ( ['label' => 'Войти в систему', 'url' => ['/user/security/login']] ) : (
             ['label' => Yii::$app->user->identity->username,
             'items' => [
-                ['label' => 'История расчётов', 'url' => ['/home/history'], 'visible' => Yii::$app->user->isGuest === false],
                 ['label' => 'Пользователи', 'url' => ['/user/admin'], 'visible' => Yii::$app->user->can('admin')],
                 ['label' => 'Выход', 'url' => ['/user/security/logout'], 'linkOptions' => ['data-method' => 'post']],
                 ],
