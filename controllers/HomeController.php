@@ -26,9 +26,6 @@ class HomeController extends Controller
      */
     public function actionIndex()
     {
-        if (Yii::$app->user->can('admin')) {
-            return $this->redirect('/user/admin');
-        }
         if (Yii::$app->user->can('vet')) {
             $dataProvider = new ActiveDataProvider([
                 'query' => Pet::find(),

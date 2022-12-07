@@ -10,15 +10,12 @@ use yii\db\Query;
  * 
  * @property integer $id
  * @property string $name
- * @property integer $vet_id
- * @property integer $client_id
- * @property integer $compaint_id
- * @property integer $medication_id
- * @property integer $course_of_treatment_id
+ * @property string $description
+ * @property integer $pet_id
  * @property TimeStamp $updated_ta
  * @property TimeStamp $created_ta
  */
-class Pet extends ActiveRecord
+class Courseoftreatment extends ActiveRecord
 {
     /**
      * @return array изменнённые атрибуты labels
@@ -26,11 +23,9 @@ class Pet extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'name' => 'Имя',
-            'compaint_id' => 'Жалобы',
-            'medication_id' => 'Выписанные лекараства',
-            'course_of_treatment_id' => 'Курс терапии',
-            'created_at' => 'Дата обращения',
+            'name' => 'Ход лечения',
+            'description' => 'Описание',
+            'created_at' => 'Дата назначения',
         ];
     }
     
@@ -39,6 +34,6 @@ class Pet extends ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%pet}}';
+        return '{{%course_of_treatment}}';
     }
 }

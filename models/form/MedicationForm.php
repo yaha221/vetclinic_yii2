@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\models\form;
 
 use yii\base\Model;
 
@@ -11,12 +11,10 @@ use yii\base\Model;
  * @property int $tonnage выбранный тоннаж
  * @property int $type выбранный тип
  */
-class CalculatedForm extends Model
+class MedicationForm extends Model
 {
-    public $month;
-    public $tonnage;
-    public $type;
-
+    public $name;
+    public $description;
 
     /**
      * @return array правила валидации
@@ -25,9 +23,9 @@ class CalculatedForm extends Model
     {
         return[
             // type, tonnage и month являются обязательными полями
-            [['type', 'tonnage', 'month',], 'required', 'message' => 'Введите в {attribute} что-нибудь',],
+            [['name', 'description',], 'required', 'message' => 'Введите в {attribute} что-нибудь',],
             // type, tonnage и month должны быть безопасными
-            [['type', 'tonnage', 'month',], 'safe',],
+            [['name', 'description',], 'safe',],
         ];
     }
 
@@ -36,10 +34,9 @@ class CalculatedForm extends Model
      */
     public function attributeLabels()
     {
-        return[
-            'type' => "тип",
-            'tonnage' => "тоннаж",
-            'month' => "месяц",
+        return [
+            'name' => 'препарат',
+            'description' => 'описание',
         ];
     }
 }

@@ -7,7 +7,7 @@ use yii\db\Migration;
  */
 class m221207_145037_create_complaint extends Migration
 {
-    const TABLE_NAME = 'complaint';
+    const TABLE_NAME = 'compaint';
     /**
      * {@inheritdoc}
      */

@@ -64,7 +64,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left"> Калькулятор стоимости поставки зерна <?= date('Y') ?></p>
+        <p class="pull-left"> Ветеринарная клиника <?= date('Y') ?></p>
         <p class="pull-right">
             <?=
             Yii::$app->user->isGuest ? ('Степанюк Антон Андреевич') 
