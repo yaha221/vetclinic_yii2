@@ -8,6 +8,7 @@ use yii\bootstrap\ActiveForm;
 use yii\web\Response;
 use yii\data\ActiveDataProvider;
 use app\models\CalculatedForm;
+use app\models\Pet;
 use app\models\repositories\DataRepository;
 use nkostadinov\user\models\User;
 use app\models\UserRequest;
@@ -25,7 +26,35 @@ class HomeController extends Controller
      */
     public function actionIndex()
     {
-        
+        if (Yii::$app->user->can('admin')) {
+            return $this->redirect('/user/admin');
+        }
+        if (Yii::$app->user->can('vet')) {
+            $dataProvider = new ActiveDataProvider([
+                'query' => Pet::find(),
+                'pagination' => [
+                    'pageSize' => 5,
+                ],
+            ]);
+            return $this->render('index', [
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        if (Yii::$app->user->can('administrator')) {
+            
+        }
+        if (Yii::$app->user->can('client')) {
+            $dataProvider = new ActiveDataProvider([
+                'query' => Pet::find()->where(['client_id' => Yii::$app->user->id]),
+                'pagination' => [
+                    'pageSize' => 5,
+                ],
+            ]);
+            return $this->render('index', [
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        return $this->redirect('/user/security/login');
     }
 
     
