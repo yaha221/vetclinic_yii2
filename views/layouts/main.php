@@ -30,7 +30,6 @@ AppAsset::register($this);
     <?php
     NavBar::begin([
         'brandLabel' => 'Ветеринарная клиника',
-        'brandImage' => 'image/vetclinic.png',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-dark navbar-expand-sm bg-dark navbar-fixed-top',
@@ -44,6 +43,7 @@ AppAsset::register($this);
             ( ['label' => 'Войти в систему', 'url' => ['/user/security/login']] ) : (
             ['label' => Yii::$app->user->identity->username,
             'items' => [
+                ['label' => 'Профиль', 'url' => ['/profile/view'], 'visible' => Yii::$app->user->can('client')],
                 ['label' => 'Пользователи', 'url' => ['/user/admin'], 'visible' => Yii::$app->user->can('admin')],
                 ['label' => 'Выход', 'url' => ['/user/security/logout'], 'linkOptions' => ['data-method' => 'post']],
                 ],

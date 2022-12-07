@@ -18,7 +18,7 @@ use yii\db\Query;
  * @property TimeStamp $updated_ta
  * @property TimeStamp $created_ta
  */
-class Pet extends ActiveRecord
+class Vet extends ActiveRecord
 {
     /**
      * @return array изменнённые атрибуты labels
@@ -39,6 +39,6 @@ class Pet extends ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%pet}}';
+        return '{{%vet}}';
     }
 }

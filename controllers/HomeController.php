@@ -56,6 +56,4 @@ class HomeController extends Controller
         }
         return $this->redirect('/user/security/login');
     }
-
-    
 }
