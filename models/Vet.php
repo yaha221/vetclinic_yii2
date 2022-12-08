@@ -32,7 +32,7 @@ class Vet extends ActiveRecord
             'experience' => 'Опыт ветеринара',
             'education' => 'Образование',
             'wage' => 'Заробатная плата',
-            'created_at' => 'Дата создания',
+            'create_at' => 'Дата создания',
         ];
     }
     

@@ -8,6 +8,9 @@ use yii\bootstrap\ActiveForm;
 use yii\web\Response;
 use yii\data\ActiveDataProvider;
 use app\models\Pet;
+use app\models\Vet;
+use app\models\Administrator;
+use app\models\Client;
 use app\models\form\PetForm;
 
 
@@ -23,6 +26,56 @@ class HomeController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->can('admin')) {
+            $dataProviderPet = new ActiveDataProvider([
+                'query' => Pet::find(),
+                'pagination' => [
+                    'pageSize' => 5,
+                ],
+            ]);
+            $dataProviderClient = new ActiveDataProvider([
+                'query' => Client::find(),
+                'pagination' => [
+                    'pageSize' => 5,
+                ],
+            ]);
+            $dataProviderVet = new ActiveDataProvider([
+                'query' => Vet::find(),
+                'pagination' => [
+                    'pageSize' => 5,
+                ],
+            ]);
+            $dataProviderAdministrator = new ActiveDataProvider([
+                'query' => Administrator::find(),
+                'pagination' => [
+                    'pageSize' => 5,
+                ],
+            ]);
+            return $this->render('index', [
+                'dataProviderPet' => $dataProviderPet,
+                'dataProviderClient' => $dataProviderClient,
+                'dataProviderVet' => $dataProviderVet,
+                'dataProviderAdministrator' => $dataProviderAdministrator,
+            ]);
+        }
+        if (Yii::$app->user->can('administrator')) {
+            $dataProviderPet = new ActiveDataProvider([
+                'query' => Pet::find(),
+                'pagination' => [
+                    'pageSize' => 5,
+                ],
+            ]);
+            $dataProviderClient = new ActiveDataProvider([
+                'query' => Client::find(),
+                'pagination' => [
+                    'pageSize' => 5,
+                ],
+            ]);
+            return $this->render('index', [
+                'dataProviderPet' => $dataProviderPet,
+                'dataProviderClient' => $dataProviderClient,
+            ]);
+        }
         if (Yii::$app->user->can('vet')) {
             $dataProvider = new ActiveDataProvider([
                 'query' => Pet::find(),
@@ -33,9 +86,6 @@ class HomeController extends Controller
             return $this->render('index', [
                 'dataProvider' => $dataProvider,
             ]);
-        }
-        if (Yii::$app->user->can('administrator')) {
-            
         }
         if (Yii::$app->user->can('client')) {
             $dataProvider = new ActiveDataProvider([
@@ -55,29 +105,40 @@ class HomeController extends Controller
     {
         if (Yii::$app->user->can('client')) {
             $fullForm = new PetForm();
-
+            $vet = Vet::find()->all();
+            $client = Client::find()->all();
+            $vets = [];
+            $clients = [];
+            foreach ($vet as $value) {
+                $vets[$value['id']] = $value['fio'];
+            }
+            foreach ($client as $value) {
+                $clients[$value['id']] = $value['fio'];
+            }
             if (Yii::$app->request->isAjax && $fullForm->load(Yii::$app->request->post())) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return ActiveForm::validate($fullForm);
             }
             if ($fullForm->load(Yii::$app->request->post()) && $fullForm->validate()) {
                 if ($id === 0) {
-                    $compaint = new Pet();
-                    $compaint['name'] = $fullForm['name'];
-                    $compaint['description'] = $fullForm['description'];
-                    $compaint['pet_id'] = $pet_id;
-                    $compaint->save();
+                    $object = new Pet();
+                    $object['name'] = $fullForm['name'];
+                    $object['vet_id'] = $fullForm['vet']['id'];
+                    $object['client_id'] = $fullForm['client']['id'];
+                    $object->save();
                     return $this->goBack();
                 }
-                $compaint = Pet::find()->where(['id' => $id])->one();
-                $compaint['name'] = $fullForm['name'];
-                $compaint['description'] = $fullForm['description'];
-                $compaint->save();
+                $object = Pet::find()->where(['id' => $id])->one();
+                $object['name'] = $fullForm['name'];
+                $object['vet_id'] = $fullForm['vet']['id'];
+                $object->save();
                 return $this->goBack();
             }
-            return $this->render('create', [
+            return $this->render('update', [
                 'fullForm' => $fullForm,
-                'title' => 'Препарат',
+                'title' => 'Питомец',
+                'vets' => $vets,
+                'clients' => $clients,
             ]);
         }
         return $this->redirect('/user/security/login');

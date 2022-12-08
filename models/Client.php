@@ -27,6 +27,7 @@ class Client extends ActiveRecord
             'fio' => 'Инициалы',
             'age' => 'Возраст',
             'phone' => 'Номер телефона',
+            'create_at' => 'Дата создания',
         ];
     }
     

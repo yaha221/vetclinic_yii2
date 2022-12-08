@@ -13,7 +13,6 @@ use app\models\Courseoftreatment;
 use app\models\form\MedicationForm;
 use app\models\form\CompaintForm;
 use app\models\form\CourseoftreatmentForm;
-use Faker\Provider\Medical;
 
 /**
  * HomeController отвечает за работу калькулятором доставки

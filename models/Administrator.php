@@ -28,10 +28,9 @@ class Administrator extends ActiveRecord
         return [
             'fio' => 'Имя',
             'age' => 'Возраст',
-            'phone' => 'Телефон',
             'experience' => 'Опыт ветеринара',
             'wage' => 'Заробатная плата',
-            'created_at' => 'Дата создания',
+            'create_at' => 'Дата создания',
         ];
     }
     
