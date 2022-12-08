@@ -94,7 +94,7 @@ class HomeController extends Controller
                 ],
             ]);
             return $this->render('index', [
-                'dataProvider' => $dataProvider,
+                'dataProviderPet' => $dataProvider,
                 'title' => 'Животные',
             ]);
         }

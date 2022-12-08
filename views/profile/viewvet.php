@@ -6,8 +6,6 @@ use yii\helpers\Html;
 $this->title = 'Профиль';
 ?>
 
-
-
 <div class="row mt-5 p-5">
 <p>
         <?= Html::a(Yii::t('','Обновить {modelClass}', [
@@ -20,6 +18,10 @@ $this->title = 'Профиль';
             'fio',
             'age',
             'phone',
+            'experience',
+            'education',
+            'wage',
+            'create_at',
         ],
     ])?>
 </div>

@@ -8,8 +8,11 @@ use yii\bootstrap\ActiveForm;
 use yii\web\Response;
 use yii\data\ActiveDataProvider;
 use app\models\Client;
+use app\models\Vet;
+use app\models\Administrator;
 use app\models\form\ClientForm;
-use yii\web\ForbiddenHttpException;
+use app\models\form\VetForm;
+use app\models\form\AdministratorForm;
 
 /**
  * HomeController отвечает за работу калькулятором доставки
@@ -24,58 +27,86 @@ class ProfileController extends Controller
     public function actionView()
     {
         if (Yii::$app->user->can('vet')) {
-            $dataProvider = new ActiveDataProvider([
-                'query' => Client::find()->where(['user_id' => Yii::$app->user->id])->one(),
-            ]);
-            return $this->render('view', [
-                'dataProvider' => $dataProvider,
+            $model = Vet::find()->where(['user_id' => Yii::$app->user->id])->one();
+            return $this->render('viewvet', [
+                'model' => $model,
             ]);
         }
         if (Yii::$app->user->can('administrator')) {
-            
+           $model = Administrator::find()->where(['user_id' => Yii::$app->user->id])->one();
+            return $this->render('viewadministrator', [
+                'model' => $model,
+            ]);
         }
         if (Yii::$app->user->can('client')) {
             $model = Client::find()->where(['user_id' => Yii::$app->user->id])->one();
-            return $this->render('view', [
+            return $this->render('viewclient', [
                 'model' => $model,
             ]);
         }
         return $this->redirect('/user/security/login');
     }
+
     public function actionUpdate()
     {
         if (Yii::$app->user->can('vet')) {
-            $dataProvider='';
-            return $this->render('view', [
-                'dataProvider' => $dataProvider,
+            $fullForm = new VetForm();
+            if (Yii::$app->request->isAjax && $fullForm->load(Yii::$app->request->post())) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($fullForm);
+            }
+            if ($fullForm->load(Yii::$app->request->post()) && $fullForm->validate()) {
+                $object = Vet::find()->where(['user_id' => Yii::$app->user->id])->one();
+                $object['fio'] = $fullForm['fio'];
+                $object['age'] = $fullForm['age'];
+                $object['phone'] = $fullForm['phone'];
+                $object['experience'] = $fullForm['experience'];
+                $object['education'] = $fullForm['education'];
+                $object->save();
+                return $this->redirect('view');
+            }
+            return $this->render('updatevet', [
+                'fullForm' => $fullForm,
             ]);
         }
         if (Yii::$app->user->can('administrator')) {
-            
-        }
-        if (Yii::$app->user->can('client')) {
-            $clientForm = new ClientForm();
-            if (Yii::$app->request->isAjax && $clientForm->load(Yii::$app->request->post())) {
+            $fullForm = new AdministratorForm();
+            if (Yii::$app->request->isAjax && $fullForm->load(Yii::$app->request->post())) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
-                return ActiveForm::validate($clientForm);
+                return ActiveForm::validate($fullForm);
             }
-            if ($clientForm->load(Yii::$app->request->post()) && $clientForm->validate()) {
-                $client = Client::find()->where(['user_id' => Yii::$app->user->id])->one();
-                $client['fio'] = $clientForm['fio'];
-                $client['age'] = $clientForm['age'];
-                $client['phone'] = $clientForm['phone'];
-                $client->save();
+            if ($fullForm->load(Yii::$app->request->post()) && $fullForm->validate()) {
+                $object = Administrator::find()->where(['user_id' => Yii::$app->user->id])->one();
+                $object['fio'] = $fullForm['fio'];
+                $object['age'] = $fullForm['age'];
+                $object['phone'] = $fullForm['phone'];
+                $object['experience'] = $fullForm['experience'];
+                $object->save();
                 return $this->redirect('view');
             }
-            return $this->render('update', [
-                'clientForm' => $clientForm,
+            return $this->render('updateadministrator', [
+                'fullForm' => $fullForm,
+            ]);
+        }
+        if (Yii::$app->user->can('client')) {
+            $fullForm = new ClientForm();
+            if (Yii::$app->request->isAjax && $fullForm->load(Yii::$app->request->post())) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($fullForm);
+            }
+            if ($fullForm->load(Yii::$app->request->post()) && $fullForm->validate()) {
+                $object = Client::find()->where(['user_id' => Yii::$app->user->id])->one();
+                $object['fio'] = $fullForm['fio'];
+                $object['age'] = $fullForm['age'];
+                $object['phone'] = $fullForm['phone'];
+                $object->save();
+                return $this->redirect('view');
+            }
+            return $this->render('updateclient', [
+                'fullForm' => $fullForm,
             ]);
         }
         return $this->redirect('/user/security/login');
     }
 
-    public function actionUpdateajax()
-    {
-        
-    }
 }

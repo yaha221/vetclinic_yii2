@@ -7,7 +7,7 @@
 ?>
     <div class="row mt-5 p-3">
     <p><?php 
-    if (Yii::$app->user->can('client')) {
+    if (Yii::$app->user->can('vet') || Yii::$app->user->can('administrator')) {
         echo Html::a(Yii::t('','Добавить {modelClass}', [
             'modelClass' => 'животное',
         ]), ['updatepet'], ['class' => 'btn btn-success']); 
