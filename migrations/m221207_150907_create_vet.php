@@ -21,7 +21,7 @@ class m221207_150907_create_vet extends Migration
             'experience' => $this->integer()->notNull(),
             'education' => $this->string(100)->notNull(),
             'wage' => $this->integer()->notNull(),
-            'user_id' => $this->integer()->notNull(),
+            'user_id' => $this->integer(),
             'update_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')->notNull(),
             'create_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP')->notNull(),
         ]);

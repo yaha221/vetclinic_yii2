@@ -39,9 +39,11 @@ class MyRbacController extends Controller {
 
         $auth->addChild($administrator, $client);
 
-        $auth->addChild($vet, $administrator);
+        $auth->addChild($vet, $client);
 
         $auth->addChild($admin, $vet);
+
+        $auth->addChild($admin, $administrator);
 
         $auth->assign($admin, 1);
 

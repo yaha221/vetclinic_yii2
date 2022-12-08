@@ -16,6 +16,7 @@ class ClientForm extends Model
     public $fio;
     public $age;
     public $phone;
+    public $user;
 
     /**
      * @return array правила валидации
@@ -26,9 +27,8 @@ class ClientForm extends Model
             // type, tonnage и month являются обязательными полями
             [['fio', 'age', 'phone',], 'required', 'message' => 'Введите в {attribute} что-нибудь',],
             // type, tonnage и month должны быть безопасными
-            [['fio', 'age', 'phone',], 'safe',],
+            [['fio', 'age', 'phone','user',], 'safe',],
             [[ 'age', 'phone',], 'match', 'pattern' => '/^[0-9]+$/u', 'message'=>'Только цифры'],
-            ['fio', 'match', 'pattern' => '/^[A-zА-я-.]+*+[A-zА-я-.]+$/u', 'message'=>'Только буквы'],
         ];
     }
 
@@ -41,6 +41,7 @@ class ClientForm extends Model
             'fio' => 'инициалы',
             'age' => 'возраст',
             'phone' => 'номер телефона',
+            'user' => 'пользователь',
         ];
     }
 }

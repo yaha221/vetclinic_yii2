@@ -19,7 +19,7 @@ class m221207_150935_create_administrator extends Migration
             'age' => $this->integer()->notNull(),
             'wage' => $this->integer()->notNull(),
             'experience' => $this->integer()->notNull(),
-            'user_id' => $this->integer()->notNull(),
+            'user_id' => $this->integer(),
             'update_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')->notNull(),
             'create_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP')->notNull(),
         ]);

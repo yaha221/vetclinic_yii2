@@ -27,7 +27,7 @@ class Pet extends ActiveRecord
     {
         return [
             'name' => 'Имя',
-            'created_at' => 'Дата обращения',
+            'create_at' => 'Дата обращения',
         ];
     }
 

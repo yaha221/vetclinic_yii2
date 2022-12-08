@@ -18,7 +18,7 @@ class m221207_150915_create_client extends Migration
             'fio' => $this->string(50)->notNull(),
             'age' => $this->integer()->notNull(),
             'phone' => $this->string(11),
-            'user_id' => $this->integer()->notNull(),
+            'user_id' => $this->integer(),
             'update_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')->notNull(),
             'create_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP')->notNull(),
         ]);

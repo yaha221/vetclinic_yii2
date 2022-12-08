@@ -1,23 +1,28 @@
 <?php
-    $this->title = 'Животные';
+    $this->title = $title;
 
     use yii\grid\GridView;
     use yii\widgets\Pjax;
     use yii\helpers\Html;
 ?>
     <div class="row mt-5 p-3">
-    <p><?= Html::a(Yii::t('','Добавить {modelClass}', [
+    <p><?php 
+    if (Yii::$app->user->can('client')) {
+        echo Html::a(Yii::t('','Добавить {modelClass}', [
             'modelClass' => 'животное',
-        ]), ['updatepet'], ['class' => 'btn btn-success']); ?>
+        ]), ['updatepet'], ['class' => 'btn btn-success']); 
+    }
+?>
     </p>
     <?php Pjax::begin() ?>
-        <?= GridView::widget([
-            'dataProvider' => $dataProviderPet,
-            'emptyText' => 'Ничего не найдено',
-            'columns' => [
-                'id',
-                'name',
-                [
+        <?php if (Yii::$app->user->can('client')) {
+            echo GridView::widget([
+                'dataProvider' => $dataProviderPet,
+                'emptyText' => 'Ничего не найдено',
+                'columns' => [
+                    'id',
+                    'name',
+                    [
                     'class' => \yii\grid\ActionColumn::className(),
                     'header' => 'Подробности',
                     'visibleButtons' =>[
@@ -32,29 +37,31 @@
                     ],
                     'template' => '{view}',
                 ],
-                'created_at',
+                'create_at',
                 [
                     'class' => \yii\grid\ActionColumn::className(),
                     'header' => 'Действия',
-                    'visible' => Yii::$app->user->can('admin'),
+                    'visible' => Yii::$app->user->can('vet'),
                     'buttons' => [
                         'update' => function ($url, $model) {
                             $customurl=Yii::$app->getUrlManager()->createUrl(['/home/updatepet','id'=>$model['id']]); 
                             return \yii\helpers\Html::a( '<span class="glyphicon glyphicon-pencil"></span>', $customurl,
-                                                    ['title' => Yii::t('yii', 'Редактировать'), 'data-pjax' => '0']);
+                            ['title' => Yii::t('yii', 'Редактировать'), 'data-pjax' => '0']);
                         },
                         'delete' => function ($url, $model) {
-                            $customurl=Yii::$app->getUrlManager()->createUrl(['/pet/deletepet','id'=>$model['id']]);
+                            $customurl=Yii::$app->getUrlManager()->createUrl(['/home/deletepet','id'=>$model['id']]);
                             return \yii\helpers\Html::a( '<span class="glyphicon glyphicon-trash"></span>', $customurl,
-                                                    ['title' => Yii::t('yii', 'Удалить'), 'data-pjax' => '0', 
-                                                    'data-confirm' => 'Вы уверены что хотите удалить животное?', 
-                                                    'data-method' => 'post']);
+                            ['title' => Yii::t('yii', 'Удалить'), 'data-pjax' => '0', 
+                            'data-confirm' => 'Вы уверены что хотите удалить животное?', 
+                            'data-method' => 'post']);
                         }
                     ],
                     'template' => '{update} {delete}',
                 ],
             ],
-        ]); ?>
+        ]);
+    }
+?>
     <?php Pjax::end() ?>
     </div>
     <div class="row mt-5 p-3">
@@ -81,8 +88,13 @@
                 [
                     'class' => \yii\grid\ActionColumn::className(),
                     'header' => 'Действия',
-                    'visible' => Yii::$app->user->can('admin'),
+                    'visible' => Yii::$app->user->can('administrator'),
                     'buttons' => [
+                        'view' => function ($url, $model) {
+                            $customurl=Yii::$app->getUrlManager()->createUrl(['/home/viewpets','id'=>$model['user_id']]); 
+                            return \yii\helpers\Html::a( '<span class="glyphicon glyphicon-eye-open"></span>', $customurl,
+                                                    ['title' => Yii::t('yii', 'Посмотреть'), 'data-pjax' => '0']);
+                        },
                         'update' => function ($url, $model) {
                             $customurl=Yii::$app->getUrlManager()->createUrl(['/home/updateclient','id'=>$model['id']]); 
                             return \yii\helpers\Html::a( '<span class="glyphicon glyphicon-pencil"></span>', $customurl,
@@ -96,7 +108,7 @@
                                                     'data-method' => 'post']);
                         }
                     ],
-                    'template' => '{update} {delete}',
+                    'template' => '{view} {update} {delete}',
                 ],
             ],
         ]); 
@@ -110,7 +122,7 @@
         
         echo Html::a(Yii::t('','Добавить {modelClass}', [
             'modelClass' => 'ветеринара',
-        ]), ['updateclient'], ['class' => 'btn btn-success']);
+        ]), ['updatevet'], ['class' => 'btn btn-success']);
     }
         ?>
     </p>
@@ -134,12 +146,12 @@
                     'visible' => Yii::$app->user->can('admin'),
                     'buttons' => [
                         'update' => function ($url, $model) {
-                            $customurl=Yii::$app->getUrlManager()->createUrl(['/home/updateclient','id'=>$model['id']]); 
+                            $customurl=Yii::$app->getUrlManager()->createUrl(['/home/updatevet','id'=>$model['id']]); 
                             return \yii\helpers\Html::a( '<span class="glyphicon glyphicon-pencil"></span>', $customurl,
                                                     ['title' => Yii::t('yii', 'Редактировать'), 'data-pjax' => '0']);
                         },
                         'delete' => function ($url, $model) {
-                            $customurl=Yii::$app->getUrlManager()->createUrl(['/home/deleteclient','id'=>$model['id']]);
+                            $customurl=Yii::$app->getUrlManager()->createUrl(['/home/deletevet','id'=>$model['id']]);
                             return \yii\helpers\Html::a( '<span class="glyphicon glyphicon-trash"></span>', $customurl,
                                                     ['title' => Yii::t('yii', 'Удалить'), 'data-pjax' => '0', 
                                                     'data-confirm' => 'Вы уверены что хотите удалить запрос?', 
@@ -160,7 +172,7 @@
         
         echo Html::a(Yii::t('','Добавить {modelClass}', [
             'modelClass' => 'администратора',
-        ]), ['updateclient'], ['class' => 'btn btn-success']);
+        ]), ['updateadministrator'], ['class' => 'btn btn-success']);
     }
         ?>
     </p>
@@ -182,12 +194,12 @@
                     'visible' => Yii::$app->user->can('admin'),
                     'buttons' => [
                         'update' => function ($url, $model) {
-                            $customurl=Yii::$app->getUrlManager()->createUrl(['/home/updateclient','id'=>$model['id']]); 
+                            $customurl=Yii::$app->getUrlManager()->createUrl(['/home/updateadministrator','id'=>$model['id']]); 
                             return \yii\helpers\Html::a( '<span class="glyphicon glyphicon-pencil"></span>', $customurl,
                                                     ['title' => Yii::t('yii', 'Редактировать'), 'data-pjax' => '0']);
                         },
                         'delete' => function ($url, $model) {
-                            $customurl=Yii::$app->getUrlManager()->createUrl(['/home/deleteclient','id'=>$model['id']]);
+                            $customurl=Yii::$app->getUrlManager()->createUrl(['/home/deleteadministrator','id'=>$model['id']]);
                             return \yii\helpers\Html::a( '<span class="glyphicon glyphicon-trash"></span>', $customurl,
                                                     ['title' => Yii::t('yii', 'Удалить'), 'data-pjax' => '0', 
                                                     'data-confirm' => 'Вы уверены что хотите удалить запрос?', 

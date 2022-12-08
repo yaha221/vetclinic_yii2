@@ -19,6 +19,7 @@ class VetForm extends Model
     public $experience;
     public $education;
     public $wage;
+    public $user;
 
 
     /**
@@ -30,11 +31,9 @@ class VetForm extends Model
             // type, tonnage и month являются обязательными полями
             [['fio', 'age', 'phone', 'experience', 'education',], 'required', 'message' => 'Введите в {attribute} что-нибудь',],
             // type, tonnage и month должны быть безопасными
-            [['fio', 'age', 'phone', 'experience', 'education', 'wage',], 'safe',],
+            [['fio', 'age', 'phone', 'experience', 'education', 'wage', 'user'], 'safe',],
 
-            [[ 'age', 'phone', 'eperience'], 'match', 'pattern' => '/^[0-9]+$/u', 'message'=>'Только цифры'],
-            
-            ['fio', 'match', 'pattern' => '/^[A-zА-я-.]+*+[A-zА-я-.]+$/u', 'message'=>'Только буквы'],
+            [[ 'age', 'phone', 'experience', 'wage'], 'match', 'pattern' => '/^[0-9]+$/u', 'message'=>'Только цифры'],            
         ];
     }
 
@@ -50,6 +49,7 @@ class VetForm extends Model
             'experience' => 'опыт ветеринара',
             'education' => 'образование',
             'wage' => 'заробатная плата',
+            'user' => 'пользователь',
         ];
     }
 }
