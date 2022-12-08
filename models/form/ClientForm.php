@@ -28,7 +28,7 @@ class ClientForm extends Model
             // type, tonnage и month должны быть безопасными
             [['fio', 'age', 'phone',], 'safe',],
             [[ 'age', 'phone',], 'match', 'pattern' => '/^[0-9]+$/u', 'message'=>'Только цифры'],
-            ['fio', 'match', 'pattern' => '/^[A-zА-я-.]+$/u', 'message'=>'Только буквы'],
+            ['fio', 'match', 'pattern' => '/^[A-zА-я-.]+*+[A-zА-я-.]+$/u', 'message'=>'Только буквы'],
         ];
     }
 

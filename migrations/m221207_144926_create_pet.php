@@ -18,9 +18,9 @@ class m221207_144926_create_pet extends Migration
             'name' => $this->string(50)->notNull(),
             'vet_id' => $this->integer()->notNull(),
             'client_id' => $this->integer(),
-            'compaint_id' => $this->integer()->notNull(),
-            'medication_id' => $this->integer()->notNull(),
-            'course_of_treatment_id' => $this->integer()->notNull(),
+            'compaint_id' => $this->integer(),
+            'medication_id' => $this->integer(),
+            'course_of_treatment_id' => $this->integer(),
             'update_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')->notNull(),
             'create_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP')->notNull(),
         ]);

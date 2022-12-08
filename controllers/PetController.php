@@ -25,18 +25,32 @@ class PetController extends Controller
      * 
      * @return mixed
      */
-    public function actionCompaint($id)
+    public function actionMore($id)
     {
         if (Yii::$app->user->can('client')) {
-            $dataProvider = new ActiveDataProvider([
+            $dataProviderCompaint = new ActiveDataProvider([
                 'query' => Compaint::find()->where(['pet_id' => $id]),
                 'pagination' => [
                     'pageSize' => 5,
                 ],
             ]);
+            $dataProviderCourseoftreatment = new ActiveDataProvider([
+                'query' => Courseoftreatment::find()->where(['pet_id' => $id]),
+                'pagination' => [
+                    'pageSize' => 5,
+                ],
+            ]);
+            $dataProviderMedication = new ActiveDataProvider([
+                'query' => Medication::find()->where(['pet_id' => $id]),
+                'pagination' => [
+                    'pageSize' => 5,
+                ],
+            ]);
             return $this->render('index', [
-                'dataProvider' => $dataProvider,
-                'title' => 'Жалобы',
+                'dataProviderCompaint' => $dataProviderCompaint,
+                'dataProviderCourseoftreatment' => $dataProviderCourseoftreatment,
+                'dataProviderMedication' => $dataProviderMedication,
+                'title' => 'Подробности',
                 'pet_id' => $id,
             ]);
         }
@@ -83,24 +97,6 @@ class PetController extends Controller
         return $this->redirect('/user/security/login');
     }
 
-    public function actionCourseoftreatment($id)
-    {
-        if (Yii::$app->user->can('client')) {
-            $dataProvider = new ActiveDataProvider([
-                'query' => Courseoftreatment::find()->where(['pet_id' => $id]),
-                'pagination' => [
-                    'pageSize' => 5,
-                ],
-            ]);
-            return $this->render('index', [
-                'dataProvider' => $dataProvider,
-                'title' => 'Лечение',
-                'pet_id' => $id,
-            ]);
-        }
-        return $this->redirect('/user/security/login');
-    }
-
     public function actionUpdatecourseoftreatment($id = 0, $pet_id = 0)
     {
         if (Yii::$app->user->can('client')) {
@@ -140,25 +136,7 @@ class PetController extends Controller
         }
         return $this->redirect('/user/security/login');
     }
-
-    public function actionMedication($id)
-    {
-        if (Yii::$app->user->can('client')) {
-            $dataProvider = new ActiveDataProvider([
-                'query' => Medication::find()->where(['pet_id' => $id]),
-                'pagination' => [
-                    'pageSize' => 5,
-                ],
-            ]);
-            return $this->render('index', [
-                'dataProvider' => $dataProvider,
-                'title' => 'Препараты',
-                'pet_id' => $id,
-            ]);
-        }
-        return $this->redirect('/user/security/login');
-    }
-
+    
     public function actionUpdatemedication($id = 0, $pet_id = 0)
     {
         if (Yii::$app->user->can('client')) {

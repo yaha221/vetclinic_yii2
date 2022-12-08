@@ -27,30 +27,15 @@ class Pet extends ActiveRecord
     {
         return [
             'name' => 'Имя',
-            'compaint_id' => 'Жалобы',
-            'medication_id' => 'Выписанные лекараства',
-            'course_of_treatment_id' => 'Курс терапии',
             'created_at' => 'Дата обращения',
         ];
     }
-    
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return '{{%pet}}';
-    }
-
-    /**
-     * Добавляет в историю запросов запрос пользователя
-     * 
-     * @throws Exception возвращает ошибку
-     */
-    public function findPets()
-    {
-        return (new Query())->select(['*'])
-            ->from('pet')
-            ->all();
     }
 }

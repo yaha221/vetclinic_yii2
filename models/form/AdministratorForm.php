@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\models\form;
 
 use yii\base\Model;
 
@@ -11,11 +11,13 @@ use yii\base\Model;
  * @property int $tonnage выбранный тоннаж
  * @property int $type выбранный тип
  */
-class CalculatedForm extends Model
+class AdministratorForm extends Model
 {
-    public $month;
-    public $tonnage;
-    public $type;
+    public $fio;
+    public $age;
+    public $phone;
+    public $experience;
+    public $wage;
 
 
     /**
@@ -25,9 +27,13 @@ class CalculatedForm extends Model
     {
         return[
             // type, tonnage и month являются обязательными полями
-            [['type', 'tonnage', 'month',], 'required', 'message' => 'Введите в {attribute} что-нибудь',],
+            [['fio', 'age', 'phone', 'experience',], 'required', 'message' => 'Введите в {attribute} что-нибудь',],
             // type, tonnage и month должны быть безопасными
-            [['type', 'tonnage', 'month',], 'safe',],
+            [['fio', 'age', 'phone', 'experience', 'wage',], 'safe',],
+
+            [[ 'age', 'phone', 'experience'], 'match', 'pattern' => '/^[0-9]+$/u', 'message'=>'Только цифры'],
+            
+            ['fio', 'match', 'pattern' => '/^[A-zА-я-.]+*+[A-zА-я-.]+$/u', 'message'=>'Только буквы'],
         ];
     }
 
@@ -36,10 +42,12 @@ class CalculatedForm extends Model
      */
     public function attributeLabels()
     {
-        return[
-            'type' => "тип",
-            'tonnage' => "тоннаж",
-            'month' => "месяц",
+        return [
+            'fio' => 'имя',
+            'age' => 'возраст',
+            'phone' => 'телефон',
+            'experience' => 'опыт ветеринара',
+            'wage' => 'заробатная плата',
         ];
     }
 }

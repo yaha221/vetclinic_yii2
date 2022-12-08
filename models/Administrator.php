@@ -26,11 +26,12 @@ class Administrator extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'name' => 'Имя',
-            'compaint_id' => 'Жалобы',
-            'medication_id' => 'Выписанные лекараства',
-            'course_of_treatment_id' => 'Курс терапии',
-            'created_at' => 'Дата обращения',
+            'fio' => 'Имя',
+            'age' => 'Возраст',
+            'phone' => 'Телефон',
+            'experience' => 'Опыт ветеринара',
+            'wage' => 'Заробатная плата',
+            'created_at' => 'Дата создания',
         ];
     }
     

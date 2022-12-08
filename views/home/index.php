@@ -1,12 +1,15 @@
 <?php
     $this->title = 'Животные';
 
-    use nkostadinov\user\models\User;
     use yii\grid\GridView;
-    use yii\data\ActiveDataProvider;
     use yii\widgets\Pjax;
+    use yii\helpers\Html;
 ?>
     <div class="row mt-5 p-5">
+    <p><?= Html::a(Yii::t('','Добавить {modelClass}', [
+            'modelClass' => 'животное',
+        ]), ['updatepet'], ['class' => 'btn btn-success']); ?>
+    </p>
     <?php Pjax::begin() ?>
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
@@ -16,40 +19,13 @@
                 'name',
                 [
                     'class' => \yii\grid\ActionColumn::className(),
-                    'header' => 'Жалобы',
+                    'header' => 'Подробности',
                     'visibleButtons' =>[
                         'delete' => \Yii::$app->user->can('admin'),
                     ],
                     'buttons' => [
                         'view' => function ($url, $model) {
-                            $customurl=Yii::$app->getUrlManager()->createUrl(['/pet/compaint','id'=>$model['id']]); 
-                            return \yii\helpers\Html::a( '<span class="glyphicon glyphicon-eye-open"></span>', $customurl,
-                                                    ['title' => Yii::t('yii', 'Посмотреть'), 'data-pjax' => '0']);
-                        },
-                    ],
-                    'template' => '{view}',
-                ],
-                [
-                    'class' => \yii\grid\ActionColumn::className(),
-                    'header' => 'Ход лечения',
-                    'visibleButtons' =>[
-                        'delete' => \Yii::$app->user->can('admin'),
-                    ],
-                    'buttons' => [
-                        'view' => function ($url, $model) {
-                            $customurl=Yii::$app->getUrlManager()->createUrl(['/pet/courseoftreatment','id'=>$model['id']]); 
-                            return \yii\helpers\Html::a( '<span class="glyphicon glyphicon-eye-open"></span>', $customurl,
-                                                    ['title' => Yii::t('yii', 'Посмотреть'), 'data-pjax' => '0']);
-                        },
-                    ],
-                    'template' => '{view}',
-                ],
-                [
-                    'class' => \yii\grid\ActionColumn::className(),
-                    'header' => 'Лекарства',
-                    'buttons' => [
-                        'view' => function ($url, $model) {
-                            $customurl=Yii::$app->getUrlManager()->createUrl(['/pet/medication','id'=>$model['id']]); 
+                            $customurl=Yii::$app->getUrlManager()->createUrl(['/pet/more','id'=>$model['id']]); 
                             return \yii\helpers\Html::a( '<span class="glyphicon glyphicon-eye-open"></span>', $customurl,
                                                     ['title' => Yii::t('yii', 'Посмотреть'), 'data-pjax' => '0']);
                         },
