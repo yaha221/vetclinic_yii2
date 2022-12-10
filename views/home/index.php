@@ -7,7 +7,7 @@
 ?>
     <div class="row mt-5 p-3">
     <p><?php 
-    if (Yii::$app->user->can('vet') || Yii::$app->user->can('administrator')) {
+    if (Yii::$app->user->can('vet')) {
         echo Html::a(Yii::t('','Добавить {modelClass}', [
             'modelClass' => 'животное',
         ]), ['updatepet'], ['class' => 'btn btn-success']); 
@@ -15,7 +15,7 @@
 ?>
     </p>
     <?php Pjax::begin() ?>
-        <?php if (Yii::$app->user->can('client')) {
+        <?php if (Yii::$app->user->can('client') && $is_Administrator === false) {
             echo GridView::widget([
                 'dataProvider' => $dataProviderPet,
                 'emptyText' => 'Ничего не найдено',
@@ -91,7 +91,7 @@
                     'visible' => Yii::$app->user->can('administrator'),
                     'buttons' => [
                         'view' => function ($url, $model) {
-                            $customurl=Yii::$app->getUrlManager()->createUrl(['/home/viewpets','id'=>$model['user_id']]); 
+                            $customurl=Yii::$app->getUrlManager()->createUrl(['/home/viewpets','id'=>$model['id']]); 
                             return \yii\helpers\Html::a( '<span class="glyphicon glyphicon-eye-open"></span>', $customurl,
                                                     ['title' => Yii::t('yii', 'Посмотреть'), 'data-pjax' => '0']);
                         },

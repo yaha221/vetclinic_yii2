@@ -43,7 +43,7 @@ AppAsset::register($this);
             ( ['label' => 'Войти в систему', 'url' => ['/user/security/login']] ) : (
             ['label' => Yii::$app->user->identity->username,
             'items' => [
-                ['label' => 'Профиль', 'url' => ['/profile/view'], 'visible' => (Yii::$app->user->can('client')||Yii::$app->user->can('administrator'))],
+                ['label' => 'Профиль', 'url' => ['/profile/view'], 'visible' => (Yii::$app->user->can('client') && !Yii::$app->user->can('admin'))],
                 ['label' => 'Пользователи', 'url' => ['/user/admin'], 'visible' => Yii::$app->user->can('admin')],
                 ['label' => 'Выход', 'url' => ['/user/security/logout'], 'linkOptions' => ['data-method' => 'post']],
                 ],

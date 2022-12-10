@@ -59,6 +59,7 @@ class HomeController extends Controller
                 'dataProviderClient' => $dataProviderClient,
                 'dataProviderVet' => $dataProviderVet,
                 'dataProviderAdministrator' => $dataProviderAdministrator,
+                'is_Administrator' => false,
                 'title' => 'Админка',
             ]);
         }
@@ -71,6 +72,7 @@ class HomeController extends Controller
             ]);
             return $this->render('index', [
                 'dataProviderClient' => $dataProviderClient,
+                'is_Administrator' => true,
                 'title' => 'Клиенты',
             ]);
         }
@@ -83,18 +85,21 @@ class HomeController extends Controller
             ]);
             return $this->render('index', [
                 'dataProviderPet' => $dataProviderPet,
+                'is_Administrator' => false,
                 'title' => 'Животные',
             ]);
         }
         if (Yii::$app->user->can('client')) {
+            $client = Client::find()->where(['user_id' => Yii::$app->user->id])->one();
             $dataProvider = new ActiveDataProvider([
-                'query' => Pet::find()->where(['client_id' => Yii::$app->user->id]),
+                'query' => Pet::find()->where(['client_id' => $client['id']]),
                 'pagination' => [
                     'pageSize' => 5,
                 ],
             ]);
             return $this->render('index', [
                 'dataProviderPet' => $dataProvider,
+                'is_Administrator' => false,
                 'title' => 'Животные',
             ]);
         }
@@ -113,7 +118,7 @@ class HomeController extends Controller
                 $vets[$value['id']] = $value['fio'];
             }
             foreach ($client as $value) {
-                $clients[$value['user_id']] = $value['fio'];
+                $clients[$value['id']] = $value['fio'];
             }
             if (Yii::$app->request->isAjax && $fullForm->load(Yii::$app->request->post())) {
                 Yii::$app->response->format = Response::FORMAT_JSON;

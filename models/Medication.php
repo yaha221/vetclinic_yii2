@@ -25,7 +25,7 @@ class Medication extends ActiveRecord
         return [
             'name' => 'Лекарство',
             'description' => 'Описание',
-            'created_at' => 'Дата назначения',
+            'create_at' => 'Дата назначения',
         ];
     }
     

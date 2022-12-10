@@ -25,7 +25,7 @@ class Courseoftreatment extends ActiveRecord
         return [
             'name' => 'Ход лечения',
             'description' => 'Описание',
-            'created_at' => 'Дата назначения',
+            'create_at' => 'Дата назначения',
         ];
     }
     

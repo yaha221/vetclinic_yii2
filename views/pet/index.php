@@ -17,7 +17,7 @@
             'columns' => [
                 'name',
                 'description',
-                'created_at',
+                'create_at',
                 [
                     'class' => \yii\grid\ActionColumn::className(),
                     'header' => 'Действия',
@@ -55,7 +55,7 @@
             'columns' => [
                 'name',
                 'description',
-                'created_at',
+                'create_at',
                 [
                     'class' => \yii\grid\ActionColumn::className(),
                     'header' => 'Действия',
@@ -92,7 +92,7 @@
             'columns' => [
                 'name',
                 'description',
-                'created_at',
+                'create_at',
                 [
                     'class' => \yii\grid\ActionColumn::className(),
                     'header' => 'Действия',

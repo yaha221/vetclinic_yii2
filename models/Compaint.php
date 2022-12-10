@@ -25,7 +25,7 @@ class Compaint extends ActiveRecord
         return [
             'name' => 'Жалоба',
             'description' => 'Описание',
-            'created_at' => 'Дата обращения',
+            'create_at' => 'Дата обращения',
         ];
     }
     
