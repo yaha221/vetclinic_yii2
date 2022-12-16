@@ -16,6 +16,7 @@ use app\models\form\ClientForm;
 use app\models\form\VetForm;
 use app\models\form\AdministratorForm;
 use nkostadinov\user\models\User;
+use yii\web\ForbiddenHttpException;
 
 /**
  * HomeController отвечает за работу калькулятором доставки
@@ -325,5 +326,16 @@ class HomeController extends Controller
             return $this->goBack();
         }
         return $this->redirect('/user/security/login');
+    }
+
+    public function actionPrint($id)
+    {
+        if (Yii::$app->user->can('administrator') === false) {
+            return new ForbiddenHttpException;
+        }
+        $client = Client::findOne($id);
+        return $this->render('print',[
+            'client' => $client,
+        ]);
     }
 }

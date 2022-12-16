@@ -98,7 +98,7 @@ class PetController extends Controller
 
     public function actionUpdatecourseoftreatment($id = 0, $pet_id = 0)
     {
-        if (Yii::$app->user->can('client')) {
+        if (Yii::$app->user->can('administrator') || Yii::$app->user->can('vet')) {
             $fullForm = new CourseoftreatmentForm();
             if (Yii::$app->request->isAjax && $fullForm->load(Yii::$app->request->post())) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
@@ -129,7 +129,7 @@ class PetController extends Controller
 
     public function actionDeletecourseoftreatment($id)
     {
-        if (Yii::$app->user->can('client')) {
+        if (Yii::$app->user->can('administrator') || Yii::$app->user->can('vet')) {
             Courseoftreatment::findOne($id)->delete();
             return $this->goBack();
         }
@@ -138,7 +138,7 @@ class PetController extends Controller
     
     public function actionUpdatemedication($id = 0, $pet_id = 0)
     {
-        if (Yii::$app->user->can('client')) {
+        if (Yii::$app->user->can('administrator') || Yii::$app->user->can('vet')) {
             $fullForm = new MedicationForm();
             if (Yii::$app->request->isAjax && $fullForm->load(Yii::$app->request->post())) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
@@ -169,7 +169,7 @@ class PetController extends Controller
 
     public function actionDeletemedication($id)
     {
-        if (Yii::$app->user->can('client')) {
+        if (Yii::$app->user->can('administrator') || Yii::$app->user->can('vet')) {
             Medication::findOne($id)->delete();
             return $this->goBack();
         }

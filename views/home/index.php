@@ -92,8 +92,13 @@
                     'buttons' => [
                         'view' => function ($url, $model) {
                             $customurl=Yii::$app->getUrlManager()->createUrl(['/home/viewpets','id'=>$model['id']]); 
-                            return \yii\helpers\Html::a( '<span class="glyphicon glyphicon-eye-open"></span>', $customurl,
-                                                    ['title' => Yii::t('yii', 'Посмотреть'), 'data-pjax' => '0']);
+                            return \yii\helpers\Html::a( '<span class="glyphicon glyphicon-piggy-bank"></span>', $customurl,
+                                                    ['title' => Yii::t('yii', 'Животные'), 'data-pjax' => '0']);
+                        },
+                        'print' => function ($url, $model) {
+                            $customurl=Yii::$app->getUrlManager()->createUrl(['/home/print','id'=>$model['id']]); 
+                            return \yii\helpers\Html::a( '<span class="glyphicon glyphicon-list-alt"></span>', $customurl,
+                                                    ['title' => Yii::t('yii', 'Квитанция'), 'data-pjax' => '0']);
                         },
                         'update' => function ($url, $model) {
                             $customurl=Yii::$app->getUrlManager()->createUrl(['/home/updateclient','id'=>$model['id']]); 
@@ -108,7 +113,7 @@
                                                     'data-method' => 'post']);
                         }
                     ],
-                    'template' => '{view} {update} {delete}',
+                    'template' => '{view} {print} {update} {delete}',
                 ],
             ],
         ]); 
