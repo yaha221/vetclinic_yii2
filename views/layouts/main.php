@@ -29,7 +29,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'Ветеринарная клиника',
+        'brandLabel' => 'Лапа помощи',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-dark navbar-expand-sm bg-dark navbar-fixed-top',
@@ -40,15 +40,24 @@ AppAsset::register($this);
         'dropDownCaret' => ' ',
         'items' => [
             Yii::$app->user->isGuest ? 
-            ( ['label' => 'Войти в систему', 'url' => ['/user/security/login']] ) : (
+            ( ['label' => 'Гость',
+            'items' => [
+                ['label' => 'Войти в систему', 'url' => ['/user/security/login']],
+                ['label' => 'О сайте', 'url' => ['/home/about']],
+                ['label' => 'О программисте', 'url' => ['/home/programmer']],
+                ],
+            ]
+            ) : (
             ['label' => Yii::$app->user->identity->username,
             'items' => [
                 ['label' => 'Профиль', 'url' => ['/profile/view'], 'visible' => (Yii::$app->user->can('client') && !Yii::$app->user->can('admin'))],
                 ['label' => 'Пользователи', 'url' => ['/user/admin'], 'visible' => Yii::$app->user->can('admin')],
+                ['label' => 'О сайте', 'url' => ['/home/about']],
+                ['label' => 'О программисте', 'url' => ['/home/programmer']],
                 ['label' => 'Выход', 'url' => ['/user/security/logout'], 'linkOptions' => ['data-method' => 'post']],
-                ],
+            ],
             ]
-            )
+            ),
         ],
     ]);
     NavBar::end();

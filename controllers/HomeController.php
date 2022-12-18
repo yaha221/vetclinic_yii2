@@ -338,4 +338,15 @@ class HomeController extends Controller
             'client' => $client,
         ]);
     }
+
+    public function actionAbout()
+    {
+        return $this->render('about');
+    }
+
+    public function actionProgrammer()
+    {
+
+        return $this->render('programmer');
+    }
 }
