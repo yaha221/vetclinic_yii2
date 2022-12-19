@@ -3,7 +3,6 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
-use yii\db\Query;
 
 /**
  * This is the model class for table "user_request".
@@ -37,5 +36,20 @@ class Client extends ActiveRecord
     public static function tableName()
     {
         return '{{%client}}';
+    }
+
+    public function getfio()
+    {
+        return $this->hasOne(Client::className(), ['fio' => 'fio']);
+    }
+
+    public function getage()
+    {
+        return $this->hasOne(Client::className(), ['age' => 'age']);
+    }
+
+    public function getphone()
+    {
+        return $this->hasOne(Client::className(), ['phone' => 'phone']);
     }
 }

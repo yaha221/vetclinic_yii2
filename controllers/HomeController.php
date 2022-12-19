@@ -13,6 +13,7 @@ use app\models\Administrator;
 use app\models\Client;
 use app\models\form\PetForm;
 use app\models\form\ClientForm;
+use app\models\form\ClientSearch;
 use app\models\form\VetForm;
 use app\models\form\AdministratorForm;
 use nkostadinov\user\models\User;
@@ -37,12 +38,8 @@ class HomeController extends Controller
                     'pageSize' => 5,
                 ],
             ]);
-            $dataProviderClient = new ActiveDataProvider([
-                'query' => Client::find(),
-                'pagination' => [
-                    'pageSize' => 5,
-                ],
-            ]);
+            $searchClient = new ClientSearch([]);
+            $dataProviderClient = $searchClient->search(Yii::$app->request->queryParams);
             $dataProviderVet = new ActiveDataProvider([
                 'query' => Vet::find(),
                 'pagination' => [
@@ -58,6 +55,7 @@ class HomeController extends Controller
             return $this->render('index', [
                 'dataProviderPet' => $dataProviderPet,
                 'dataProviderClient' => $dataProviderClient,
+                'searchClient' => $searchClient,
                 'dataProviderVet' => $dataProviderVet,
                 'dataProviderAdministrator' => $dataProviderAdministrator,
                 'is_Administrator' => false,
@@ -65,14 +63,11 @@ class HomeController extends Controller
             ]);
         }
         if (Yii::$app->user->can('administrator')) {
-            $dataProviderClient = new ActiveDataProvider([
-                'query' => Client::find(),
-                'pagination' => [
-                    'pageSize' => 5,
-                ],
-            ]);
+            $searchClient = new ClientSearch([]);
+            $dataProviderClient = $searchClient->search(Yii::$app->request->queryParams);
             return $this->render('index', [
                 'dataProviderClient' => $dataProviderClient,
+                'searchClient' => $searchClient,
                 'is_Administrator' => true,
                 'title' => 'Клиенты',
             ]);

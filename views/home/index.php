@@ -78,6 +78,7 @@
         <?php if (Yii::$app->user->can('administrator')) {
         echo GridView::widget([
             'dataProvider' => $dataProviderClient,
+            'filterModel' => $searchClient,
             'emptyText' => 'Ничего не найдено',
             'columns' => [
                 'id',
