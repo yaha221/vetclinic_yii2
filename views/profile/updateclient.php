@@ -10,11 +10,11 @@
             'enableAjaxValidation' => true,
         ]); ?>
         
-        <?= $form->field($clientForm, 'fio')->textInput()->label('Инициалы') ?>
+        <?= $form->field($fullForm, 'fio')->textInput()->label('Инициалы') ?>
         
-        <?= $form->field($clientForm, 'age')->textInput()->label('Возраст') ?>
+        <?= $form->field($fullForm, 'age')->textInput()->label('Возраст') ?>
         
-        <?= $form->field($clientForm, 'phone')->textInput()->label('Телефон') ?>
+        <?= $form->field($fullForm, 'phone')->textInput()->label('Телефон') ?>
         
         <div class="form-group">
             <?= Html::submitButton('Обновить', ['class' => 'btn btn-primary']) ?>

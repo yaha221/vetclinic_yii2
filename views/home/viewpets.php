@@ -41,7 +41,7 @@
                 [
                     'class' => \yii\grid\ActionColumn::className(),
                     'header' => 'Действия',
-                    'visible' => Yii::$app->user->can('admin'),
+                    'visible' => Yii::$app->user->can('administrator'),
                     'buttons' => [
                         'update' => function ($url, $model) {
                             $customurl=Yii::$app->getUrlManager()->createUrl(['/home/updatepet','id'=>$model['id']]); 
@@ -62,3 +62,5 @@
         ]);
     }
 ?>
+    <?php Pjax::end() ?>
+</div>
